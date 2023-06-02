@@ -1,6 +1,6 @@
 
 import React, { useState, ChangeEvent } from "react";
-import AppPage from "./appPage";
+import ToDoList from "./ToDoList";
 
 function Login() {
     // state variable declaration
@@ -34,8 +34,9 @@ function Login() {
                                     <h3>Log In</h3><br />
                                     <div className="d-flex justify-content-center align-items-center mb-4">
                                         <div className="form-outline flex-fill">
+                                        <label className="form-label" for="form2">Name</label>
                                             <input value={user} onChange={handleChange} className="form-control" id="form2" />
-                                            <label className="form-label" for="form2">Name</label><br />
+                                            <br />
                                             <button onClick={handleClick} className="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
@@ -50,7 +51,7 @@ function Login() {
     else if (state === 'loggedOn') {
         return (
             <>
-            <AppPage user={user} />
+            <ToDoList user={user} />
             </>
             
         )

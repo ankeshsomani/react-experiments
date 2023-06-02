@@ -1,9 +1,10 @@
-import './components/css/mdb.min.css';
+import './assets/css/theme.min.css';
 import Login from './components/login';
+import AddExpense from './components/AddExpense';
 
 const App = () => {
   return (
-    <Login />
+    <AddExpense />
   );
 };
 

@@ -2,6 +2,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import Login from "./login";
 import AppPage from "./appPage";
 
+
 function ToDoList(props) {
 
     // State variables declaration
@@ -9,6 +10,8 @@ function ToDoList(props) {
     const [value, setValue] = useState('');
     const [state, setState] = useState('loggedOn')
     const id = task.length + 1;
+    window.$user = props.user;
+
 
     // Task Adding function
     const handleClick = () => {
@@ -77,14 +80,14 @@ function ToDoList(props) {
                         <div className="col col-xl-10">
                             <div className="card shadow-lg">
                                 <div className="card-body p-5" data-mdb-perfect-scrollbar="true">
-                                    <h3>Welcome {props.user} , the time is {time.toLocaleTimeString()}</h3>
+                                    <h3>Welcome {window.$user} , the time is {time.toLocaleTimeString()}</h3>
                                     <button onClick={LogOff} className="btn btn-primary">Log Off</button>&nbsp;&nbsp;
                                     <button onClick={SwitchToAppPage} className="btn btn-primary">App Page</button>
                                     <br /><br />
                                     <div className="d-flex justify-content-center align-items-center mb-4">
                                         <div className="form-outline flex-fill">
-                                            <input value={value} type="text" id="form2" className="form-control" onChange={handleChange} />
                                             <label className="form-label" for="form2">New task...</label>
+                                            <input value={value} type="text" id="form2" className="form-control" onChange={handleChange} />
                                         </div>
                                         <button className="btn btn-primary ms-2" onClick={handleClick}>Add</button>
                                     </div>
@@ -115,7 +118,7 @@ function ToDoList(props) {
             </section>
         );
 
-    else if(state === 'loggedOff') {
+    else if (state === 'loggedOff') {
         return (
             <Login />
         );
@@ -123,7 +126,7 @@ function ToDoList(props) {
 
     else {
         return (
-        <AppPage />
+            <AppPage />
         )
     }
 
