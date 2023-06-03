@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
+import AxiosHelper from "../Helpers/AxiosHelper";
+import axios from "axios";
 
 export default function ListExpense() {
-  const expenses = [
+  const baseUrl = "http://localhost:8082/api/expenses";
+  const [expenses, setExpenses] = React.useState(null);
+
+  var expenses1 = [
     {
       expenseDate: "01-Jan-2023",
       expenseAmount: 2000,
@@ -16,6 +21,14 @@ export default function ListExpense() {
       description: "vegetables and fruits",
     },
   ];
+
+  useEffect(() => {
+    axios.get(baseUrl).then((response) => {
+      setExpenses(response.data);
+    });
+  }, []);
+
+  if (!expenses) return null;
 
   return (
     <>
@@ -36,8 +49,8 @@ export default function ListExpense() {
           <tbody>
             {expenses.map((expense) => (
               <tr>
-                <td>{expense.expenseDate}</td>
-                <td>{expense.expenseAmount}</td>
+                <td>{expense.expensedate}</td>
+                <td>{expense.amount}</td>
                 <td>{expense.category}</td>
                 <td>{expense.description}</td>
 
@@ -47,11 +60,9 @@ export default function ListExpense() {
                       class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
                       type="button"
                       data-bs-toggle="dropdown"
-                      data-boundary="window"
-                      aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      <span class="fas fa-ellipsis-h fs--1">...</span>
+                      <span class="fs--1">...</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end border py-0">
                       <div class="py-2">

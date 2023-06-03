@@ -5,6 +5,7 @@ import ListExpense from './components/ListExpense';
 import AddExpense from './components/AddExpense';
 import Login from './components/login';
 import Navbar from './components/Navbar';
+import NoPage from './components/404Page';
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
           <Route path= "/" Component={Navbar}/>
           <Route path= "/addexpense" Component={AddExpense}/>
           <Route path= "/showExpense" Component={ListExpense}/>
-
+          <Route path= "*" Component={NoPage}/>
         </Routes>
     </BrowserRouter>
    
