@@ -24,9 +24,6 @@ export default function AddExpense() {
     setCategory(e.target.value);
   };
   const addExpense = () => {
-    alert(
-      `date: ${date}, desc: ${desc}, amount: ${amount}, category: ${category} `
-    );
     axios
       .post(addExpenseUrl, {
         expensedate: `${date}`,
@@ -43,7 +40,7 @@ export default function AddExpense() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "colored",
         });
       });
   };
@@ -57,7 +54,7 @@ export default function AddExpense() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "colored",
     });
   }
 
@@ -110,8 +107,9 @@ export default function AddExpense() {
         >
           <option value="">Select Expense Catgeory...</option>
           <option>Entertainment</option>
-          <option>Vehicle Fuel and extra costs</option>
+          <option>Travel Expenses</option>
           <option>Education</option>
+          <option>Rent and Fixed Services</option>
           <option>Food</option>
           <option>Grocery</option>
         </select>

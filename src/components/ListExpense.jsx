@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import AxiosHelper from "../Helpers/AxiosHelper";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify'
+
 
 export default function ListExpense() {
   const baseUrl = "http://localhost:8082/api/expenses";
   const [expenses, setExpenses] = React.useState(null);
 
-  var expenses1 = [
-    {
-      expenseDate: "01-Jan-2023",
-      expenseAmount: 2000,
-      category: "Food",
-      description: "Dominos Pizza",
-    },
-    {
-      expenseDate: "01-Feb-2023",
-      expenseAmount: 250,
-      category: "Grocery",
-      description: "vegetables and fruits",
-    },
-  ];
 
   useEffect(() => {
     axios.get(baseUrl).then((response) => {
@@ -28,11 +15,24 @@ export default function ListExpense() {
     });
   }, []);
 
-  if (!expenses) return null;
+  function editExpense() {
+    alert('inside edit expense');
+
+  }
+
+  function deleteExpense() {
+    alert('inside delete expense');
+
+  }
+
+  if (!expenses) {
+    //alert('Failed to get table from database!');
+    return null;
+  }
 
   return (
     <>
-      <Navbar />
+      <Navbar active="listexpense" />
       <div class="table-responsive scrollbar">
         <table class="table">
           <thead>
@@ -48,39 +48,34 @@ export default function ListExpense() {
           </thead>
           <tbody>
             {expenses.map((expense) => (
-              <tr>
+              <tr id={expense.id}>
                 <td>{expense.expensedate}</td>
                 <td>{expense.amount}</td>
                 <td>{expense.category}</td>
                 <td>{expense.description}</td>
 
                 <td class="text-end">
-                  <div class="dropdown font-sans-serif position-static">
-                    <button
-                      class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span class="fs--1">...</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end border py-0">
-                      <div class="py-2">
-                        <a class="dropdown-item" href="#!">
-                          Edit
-                        </a>
-                        <a class="dropdown-item text-danger" href="#!">
-                          Delete
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" onClick={editExpense} data-bs-placement="top" title="Edit">&#x270E;</button>
+                    <button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" onClick={deleteExpense} data-bs-placement="top" title="Delete"><span class="trash text-secondary">&#x1f5d1;</span></button></div>
                 </td>
               </tr>
+
             ))}
           </tbody>
         </table>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 }
