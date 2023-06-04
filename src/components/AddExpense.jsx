@@ -106,12 +106,13 @@ export default function AddExpense() {
           onChange={handleCategoryChange}
         >
           <option value="">Select Expense Catgeory...</option>
-          <option>Entertainment</option>
-          <option>Travel Expenses</option>
-          <option>Education</option>
-          <option>Rent and Fixed Services</option>
-          <option>Food</option>
           <option>Grocery</option>
+          <option>Travel</option>
+          <option>Education</option>
+          <option>Rent and Household Services</option>
+          <option>Outside Food</option>
+          <option>Entertainment</option>
+          <option>Others</option>
         </select>
         <p>{category}</p>
         <br />
