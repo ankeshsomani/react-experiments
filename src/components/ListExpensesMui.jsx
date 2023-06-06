@@ -75,6 +75,12 @@ const ListExpenseMui = () => {
     const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
         if (!Object.keys(validationErrors).length) {
             tableData[row.index] = values;
+           // console.log('--REYANSH---'+JSON.stringify(values));
+            const updateUrl = baseUrl + "/" + values.id;
+            axios.put(
+                updateUrl,
+                values
+              );
             //send/receive api updates here, then refetch or update local table data for re-render
             setTableData([...tableData]);
             exitEditingMode(); //required to exit editing mode and close modal
@@ -93,6 +99,11 @@ const ListExpenseMui = () => {
                 return;
             }
             //send api delete request here, then refetch or update local table data for re-render
+            var idToDelete = row.getValue('id');
+            const deleteUrl = baseUrl + "/" + idToDelete;
+            axios.delete(
+                deleteUrl
+              );
             tableData.splice(row.index, 1);
             setTableData([...tableData]);
         },
@@ -132,6 +143,14 @@ const ListExpenseMui = () => {
 
     const columns = useMemo(
         () => [
+            {
+                accessorKey: 'id',
+                header: 'ID',
+                enableColumnOrdering: false,
+                enableEditing: false, //disable editing on this column
+                enableSorting: false,
+                size: 80,
+            },
             {
                 accessorKey: 'expensedate',
                 header: 'Expense Date',
