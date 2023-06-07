@@ -335,6 +335,16 @@ export const CreateNewExpenseModal = ({ open, columns, onClose, onSubmit }) => {
                                     />
                                 )
                             }
+                            if (column.accessorKey === 'id') {
+                                return(
+                                    <TextField
+                                    key={column.accessorKey}
+                                    label={column.header}
+                                    name={column.accessorKey}
+                                    disabled
+                                    />
+                                )
+                            }
                             else {
                                 return (
                                     <>
