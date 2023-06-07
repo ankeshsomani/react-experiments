@@ -16,18 +16,13 @@ import {
     TextField,
     Tooltip,
 } from '@mui/material';
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from "axios";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Delete, Edit } from '@mui/icons-material';
 import { data, categories } from './makeData.ts';
-import SelectInput from '@mui/material/Select/SelectInput.js';
+import Navbar from './Navbar';
 
 const ListExpenseMui = () => {
     const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -177,6 +172,7 @@ const ListExpenseMui = () => {
 
     return (
         <>
+        <Navbar/>
             <MaterialReactTable
                 displayColumnDefOptions={{
                     'mrt-row-actions': {

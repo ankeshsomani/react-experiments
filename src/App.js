@@ -1,25 +1,17 @@
 import './assets/css/theme.min.css';
-import { BrowserRouter, Routes, Route , Link} from "react-router-dom";
-import ExpenseCalculator from './components/ExpenseCalculator';
-import ListExpense from './components/ListExpense';
-import AddExpense from './components/AddExpense';
-import Login from './components/login';
-import Navbar from './components/Navbar';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import NoPage from './components/404Page';
 import ListExpenseMui from './components/ListExpensesMui';
 
 const App = () => {
   return (
     <>
-    {/* <BrowserRouter>
+     <BrowserRouter>
         <Routes>
-          <Route path= "/" Component={Navbar}/>
-          <Route path= "/addexpense" Component={AddExpense}/>
-          <Route path= "/showExpense" Component={ListExpense}/>
+          <Route path= "/" Component={ListExpenseMui}/>
           <Route path= "*" Component={NoPage}/>
         </Routes>
-    </BrowserRouter> */}
-    <ListExpenseMui/>
+    </BrowserRouter> 
    
   </>
   );
