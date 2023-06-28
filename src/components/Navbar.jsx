@@ -68,11 +68,12 @@ function Navbar(props) {
             MUI
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+          <Button sx={{ color: '#fff' }} href='/'>
+                Expense Calculator
+          </Button>
+          <Button sx={{ color: '#fff' }} href='/dashboard'>
+                Dashboard
+          </Button>
           </Box>
         </Toolbar>
       </AppBar>
