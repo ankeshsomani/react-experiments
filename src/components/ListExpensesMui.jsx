@@ -15,6 +15,8 @@ import {
     Stack,
     TextField,
     Tooltip,
+    ThemeProvider,
+    createTheme
 } from '@mui/material';
 import axios from "axios";
 
@@ -28,6 +30,7 @@ const ListExpenseMui = () => {
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [tableData, setTableData] = useState(() => data);
     const [validationErrors, setValidationErrors] = useState({});
+    const [theme, setTheme] = useState('dark');
 
     const baseUrl = "http://localhost:8082/api/expenses";
 
@@ -37,6 +40,19 @@ const ListExpenseMui = () => {
             setTableData(response.data);
         });
     }, []);
+
+    const darkTheme = createTheme({
+        palette: {
+          mode: theme,
+        },
+      });
+    
+      const changeTheme = () => {
+        if (theme === 'light')
+        setTheme('dark')
+        else
+        setTheme('light')
+      }
 
 
     const handleCreateNewRow = (values) => {
@@ -190,7 +206,7 @@ const ListExpenseMui = () => {
     );
 
     return (
-        <>
+        <ThemeProvider theme={darkTheme}>
         <Navbar/>
             <MaterialReactTable
                 displayColumnDefOptions={{
@@ -223,6 +239,7 @@ const ListExpenseMui = () => {
                     </Box>
                 )}
                 renderTopToolbarCustomActions={() => (
+                    <>
                     <Button
                         color="secondary"
                         onClick={() => setCreateModalOpen(true)}
@@ -230,6 +247,8 @@ const ListExpenseMui = () => {
                     >
                         Create New Expense
                     </Button>
+                    <Button onClick={changeTheme}>Theme</Button>
+                    </>
                 )}
             />
             <CreateNewExpenseModal
@@ -250,7 +269,7 @@ const ListExpenseMui = () => {
                 pauseOnHover
                 theme="light"
             />
-        </>
+        </ThemeProvider>
     );
 };
 

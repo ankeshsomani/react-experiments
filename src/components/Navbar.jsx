@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { ThemeProvider, createTheme } from '@mui/material';
 
 const drawerWidth = 240;
 const navItems = ['Debug','Dashboard','Home'];
@@ -21,6 +22,7 @@ const navItems = ['Debug','Dashboard','Home'];
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [theme, setTheme] = React.useState('light')
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -46,7 +48,21 @@ function Navbar(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: theme,
+    },
+  });
+
+  const changeTheme = () => {
+    if (theme === 'light')
+    setTheme('dark')
+    else
+    setTheme('light')
+  }
+
   return (
+    <ThemeProvider theme={darkTheme}>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" position='fixed'>
@@ -73,6 +89,7 @@ function Navbar(props) {
                       {item}
                 </Button>
         ))}
+        <Button sx={{ color: '#fff'}} onClick={changeTheme}>Theme</Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -95,6 +112,7 @@ function Navbar(props) {
       </Box>
       <Toolbar />
     </Box>
+    </ThemeProvider>
   );
 }
 

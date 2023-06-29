@@ -26,5 +26,6 @@ export const categories = [
   'Travel Expense',
   'Entertainment',
   'Clothes and Footwear',
-  'Others'
+  'Others',
+  'Food'
 ];
