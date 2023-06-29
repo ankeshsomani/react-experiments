@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
-const navItems = ['Dashboard', 'Expense Calculator'];
+const navItems = ['Debug','Dashboard','Home'];
 
 function Navbar(props) {
   const { window } = props;
@@ -33,9 +33,9 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {navItems.map((item, index) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton sx={{ textAlign: 'center' }} href={'/' + item}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -65,15 +65,14 @@ function Navbar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            Expense manager
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button sx={{ color: '#fff' }} href='/'>
-                Expense Calculator
-          </Button>
-          <Button sx={{ color: '#fff' }} href='/dashboard'>
-                Dashboard
-          </Button>
+          {navItems.map((item, index) => (
+                <Button key={item} sx={{ color: '#fff' }} href={'/' + item}>
+                      {item}
+                </Button>
+        ))}
           </Box>
         </Toolbar>
       </AppBar>
