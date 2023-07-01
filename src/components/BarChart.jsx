@@ -1,10 +1,11 @@
-import { useD3 } from './hooks/useD3';
-import React, { useState } from 'react';
-import * as d3 from 'd3';
-import axios from 'axios';
-import moment from 'moment/moment';
+import { useD3 } from "./hooks/useD3";
+import React, { useState } from "react";
+import * as d3 from "d3";
+import axios from "axios";
+import moment from "moment/moment";
 
-function BarChart() {
+function BarChart(props) {
+  const data = props.data;
   // const baseUrl = "http://localhost:8082/api/expenses";
   // const [chartData, setChartData] = useState([])
 
@@ -25,176 +26,19 @@ function BarChart() {
   // const data = chartData;
   // console.log(' formatted data now back is :----'+ JSON.stringify(data));
 
+  // const data1 = [{"amount":"514.00","id":9,"expensedate":"2023-06-03T00:00:00.000Z","description":"Amazon Fresh","category":"Grocery"},{"amount":"1141.00","id":10,"expensedate":"2023-06-04T00:00:00.000Z","description":"Dmart Ready","category":"Grocery"},{"amount":"300.00","id":11,"expensedate":"2023-06-03T00:00:00.000Z","description":"Outside Food","category":"Food"},{"amount":"200.00","id":12,"expensedate":"2023-06-02T00:00:00.000Z","description":"Pastry and Gola","category":"Food"},{"amount":"541.00","id":13,"expensedate":"2023-06-02T00:00:00.000Z","description":"Sweets and Paneer","category":"Food"},{"amount":"170.00","id":14,"expensedate":"2023-06-01T00:00:00.000Z","description":"Naturals Ice Cream","category":"Food"},{"amount":"545.00","id":15,"expensedate":"2023-06-04T00:00:00.000Z","description":"Vegetables and Fruits","category":"Food"},{"amount":"500.00","id":16,"expensedate":"2023-06-04T00:00:00.000Z","description":"Car and Activa Wash Monthly","category":"Rent and Fixed Services"},{"amount":"20000.00","id":17,"expensedate":"2023-06-01T00:00:00.000Z","description":"House Rent","category":"Rent and Fixed Services"},{"amount":"40.00","id":18,"expensedate":"2023-06-01T00:00:00.000Z","description":"Tea in office by Ankesh","category":"Others"},{"amount":"700.00","id":19,"expensedate":"2023-05-06T00:00:00.000Z","description":"ramayan book","category":"Others"},{"amount":"2710.00","id":20,"expensedate":"2023-06-05T00:00:00.000Z","description":"April and may electricity bill","category":"Rent and household services"},{"amount":"80.00","id":21,"expensedate":"2023-06-04T00:00:00.000Z","description":"Ankesh shaving","category":"Others"},{"amount":"150.00","id":22,"expensedate":"2023-06-05T00:00:00.000Z","description":"Reyansh haircut","category":"Others"},{"amount":"155.00","id":23,"expensedate":"2023-06-04T00:00:00.000Z","description":"Other food expenses","category":"Others"},{"amount":"700.00","id":26,"expensedate":"2023-06-09T00:00:00.000Z","description":"Amazon Delivery ","category":"Others"},{"amount":"600.00","id":27,"expensedate":"2023-06-09T00:00:00.000Z","description":"Amazon Gift for ram","category":"Others"},{"amount":"670.00","id":28,"expensedate":"2023-06-11T00:00:00.000Z","description":"Vegetables and Fruits from farmers market pune","category":"Vegetables and Fruits"},{"amount":"300.00","id":29,"expensedate":"2023-06-11T00:00:00.000Z","description":"Clay pot ","category":"Others"},{"amount":"850.00","id":30,"expensedate":"2023-06-10T00:00:00.000Z","description":"Star Bazzar ","category":"Vegetables and Fruits"},{"amount":"345.00","id":31,"expensedate":"2023-06-12T00:00:00.000Z","description":"Naturals ice cream","category":"Food"},{"amount":"500.00","id":32,"expensedate":"2023-06-12T00:00:00.000Z","description":"Country Delight recharge","category":"Food"},{"amount":"1475.00","id":33,"expensedate":"2023-06-11T00:00:00.000Z","description":"Milk payment","category":"Food"},{"amount":"88.00","id":34,"expensedate":"2023-06-13T00:00:00.000Z","description":"Laundry","category":"Others"},{"amount":"650.00","id":35,"expensedate":"2023-06-11T00:00:00.000Z","description":"Farmers market ","category":"Vegetables and Fruits"},{"amount":"70.00","id":36,"expensedate":"2023-06-13T00:00:00.000Z","description":"Ankesh Office Tea and Bhel","category":"Others"},{"amount":"29000.00","id":37,"expensedate":"2023-06-14T00:00:00.000Z","description":"LLoyds ac 1 ton- amazon","category":"Others"},{"amount":"15000.00","id":38,"expensedate":"2023-06-15T00:00:00.000Z","description":"Transferred to Mummy(Neemuch)","category":"Others"},{"amount":"1000.00","id":39,"expensedate":"2023-06-16T00:00:00.000Z","description":"AC installation magarpatta PMS","category":"Others"},{"amount":"460.00","id":40,"expensedate":"2023-06-18T00:00:00.000Z","description":"Vegetables farmer market","category":"Vegetables and Fruits"},{"amount":"2515.00","id":41,"expensedate":"2023-06-17T00:00:00.000Z","description":"AC installation charges","category":"Others"},{"amount":"470.00","id":42,"expensedate":"2023-06-17T00:00:00.000Z","description":"Hardware shop- AC bird removers and switch","category":"Others"},{"amount":"3200.00","id":43,"expensedate":"2023-06-17T00:00:00.000Z","description":"Neha Cloths shopping from centro","category":"Clothes and Footwear"},{"amount":"2400.00","id":44,"expensedate":"2023-06-17T00:00:00.000Z","description":"Neha Cloths shopping from azorte","category":"Clothes and Footwear"},{"amount":"1284.00","id":45,"expensedate":"2023-06-18T00:00:00.000Z","description":"Train ticket mummy neemuch","category":"Travel Expense"}];
 
-  const data = [
-    {
-      "id": 50,
-      "expensedate": "2023-06-19T00:00:00.000Z",
-      "description": "Activa petrol",
-      "category": "Others"
-    },
-    {
-      "amount": "150.00",
-      "id": 51,
-      "expensedate": "2023-06-19T00:00:00.000Z",
-      "description": "Magarpatta citizen card",
-      "category": "Others"
-    },
-    {
-      "amount": "370.00",
-      "id": 52,
-      "expensedate": "2023-06-18T00:00:00.000Z",
-      "description": "Kalika sweets and paneer",
-      "category": "Food"
-    },
-    {
-      "amount": "100.00",
-      "id": 53,
-      "expensedate": "2023-06-18T00:00:00.000Z",
-      "description": "Pav and bread",
-      "category": "Food"
-    },
-    {
-      "amount": "100.00",
-      "id": 54,
-      "expensedate": "2023-06-17T00:00:00.000Z",
-      "description": "Laundry",
-      "category": "Others"
-    },
-    {
-      "amount": "760.00",
-      "id": 55,
-      "expensedate": "2023-06-18T00:00:00.000Z",
-      "description": "Start Bazar fruits and vegetables",
-      "category": "Vegetables and Fruits"
-    },
-    {
-      "amount": "100.00",
-      "id": 56,
-      "expensedate": "2023-06-20T00:00:00.000Z",
-      "description": "Jyoti bai salary",
-      "category": "Rent and household services"
-    },
-    {
-      "amount": "720.00",
-      "id": 57,
-      "expensedate": "2023-06-20T00:00:00.000Z",
-      "description": "Urban clap parlor",
-      "category": "Others"
-    },
-    {
-      "amount": "380.00",
-      "id": 58,
-      "expensedate": "2023-06-20T00:00:00.000Z",
-      "description": "Amazon cupboard lock",
-      "category": "Others"
-    },
-    {
-      "amount": "746.00",
-      "id": 59,
-      "expensedate": "2023-06-24T00:00:00.000Z",
-      "description": "Amazon fresh",
-      "category": "Grocery"
-    },
-    {
-      "amount": "380.00",
-      "id": 60,
-      "expensedate": "2023-06-23T00:00:00.000Z",
-      "description": "Child Lock from amazon",
-      "category": "Others"
-    },
-    {
-      "amount": "2000.00",
-      "id": 61,
-      "expensedate": "2023-06-21T00:00:00.000Z",
-      "description": "Petrol in car",
-      "category": "Travel Expense"
-    },
-    {
-      "amount": "2400.00",
-      "id": 62,
-      "expensedate": "2023-06-21T00:00:00.000Z",
-      "description": "octant pizza birthday party",
-      "category": "Entertainment"
-    },
-    {
-      "amount": "200.00",
-      "id": 63,
-      "expensedate": "2023-06-21T00:00:00.000Z",
-      "description": "Vegetables and Fruits from balaji temple",
-      "category": "Vegetables and Fruits"
-    },
-    {
-      "amount": "350.00",
-      "id": 64,
-      "expensedate": "2023-06-21T00:00:00.000Z",
-      "description": "Cake birthday neha",
-      "category": "Food"
-    },
-    {
-      "amount": "200.00",
-      "id": 65,
-      "expensedate": "2023-06-24T00:00:00.000Z",
-      "description": "Ankesh Office expense",
-      "category": "Others"
-    },
-    {
-      "amount": "600.00",
-      "id": 66,
-      "expensedate": "2023-06-26T00:00:00.000Z",
-      "description": "Krishna Vaccine",
-      "category": "Others"
-    },
-    {
-      "amount": "170.00",
-      "id": 67,
-      "expensedate": "2023-06-26T00:00:00.000Z",
-      "description": "Reyansh Socks",
-      "category": "Clothes and Footwear"
-    },
-    {
-      "amount": "864.00",
-      "id": 68,
-      "expensedate": "2023-06-25T00:00:00.000Z",
-      "description": "Star bazar shopping",
-      "category": "Grocery"
-    },
-    {
-      "amount": "270.00",
-      "id": 69,
-      "expensedate": "2023-06-24T00:00:00.000Z",
-      "description": "Apsara ice cream",
-      "category": "Others"
-    },
-    {
-      "amount": "2623.00",
-      "id": 70,
-      "expensedate": "2023-06-25T00:00:00.000Z",
-      "description": "Dmart ready Grocery",
-      "category": "Grocery"
-    },
-    {
-      "amount": "186.00",
-      "id": 71,
-      "expensedate": "2023-06-26T00:00:00.000Z",
-      "description": "Kalika doodh and paneer",
-      "category": "Grocery"
-    },
-    {
-      "amount": "140.00",
-      "id": 72,
-      "expensedate": "2023-06-26T00:00:00.000Z",
-      "description": "Aunty food cooking payment",
-      "category": "Rent and household services"
-    },
-    {
-      "amount": "464.00",
-      "id": 73,
-      "expensedate": "2023-06-26T00:00:00.000Z",
-      "description": "Naturals ice cream",
-      "category": "Others"
-    }
-  ]
+  // const data = data1.map(function (expense) {
+  //   var expenseDate1 = new Date(expense.expensedate).getDate();
+  //   var formattedJson = {
+  //     amount: expense.amount,
+  //     id: expense.id,
+  //     expensedate: expenseDate1,
+  //     description: expense.description,
+  //     category: expense.category
+  //   };
+  //   return formattedJson;
+  // });
   const ref = useD3(
     (svg) => {
       const height = 600;
@@ -203,7 +47,7 @@ function BarChart() {
 
       const x = d3
         .scaleBand()
-        .domain(data.map((d) => d.id))
+        .domain(data.map((d) => d.expensedate))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
 
@@ -250,7 +94,7 @@ function BarChart() {
         .data(data)
         .join("rect")
         .attr("class", "bar")
-        .attr("x", (d) => x(d.id))
+        .attr("x", (d) => x(d.expensedate))
         .attr("width", x.bandwidth())
         .attr("y", (d) => y1(d.amount))
         .attr("height", (d) => y1(0) - y1(d.amount));
