@@ -8,10 +8,13 @@ const Dashboard = () => {
 
   const [currentMonth, setCurrentMonth] = useState();
   const [prevMonth, setPrevMonth] = useState();
-  const [totalExpenses, setTotalExpenses] = useState();
 
-  const [barChartData, setBarChartData] = useState([]);
-  const [pieChartData, setPieChartData] = useState([]);
+  const [totalExpensesPrevMonth, setTotalExpensesPrevMonth] = useState();
+  const [barChartDataPrevMonth, setBarChartDataPrevMonth] = useState([]);
+  const [pieChartDataPrevMonth, setPieChartDataPrevMonth] = useState([]);
+
+  const [totalExpensesCurrMonth, setTotalExpensesCurrMonth] = useState();
+
   const monthNames = [
     "January",
     "February",
@@ -70,32 +73,47 @@ const Dashboard = () => {
   useEffect(() => {
     setCurrentMonth(monthNames[getCurrentMonth()]);
     setPrevMonth(monthNames[getCurrentMonth() - 1]);
+    const lastMonthFromDate = "2023-06-01";
+    const lastMonthToDate = "2023-06-30";
+    const currentMonthFromDate = "2023-07-01";
+    const currentMonthToDate = "2023-07-30";
 
-    axios.get(baseUrl).then((response) => {
+    var expenseForPrevMonthUrl = baseUrl+"?fromDate="+lastMonthFromDate+"&toDate="+lastMonthToDate;
+    var expenseForCurrMonthUrl = baseUrl+"?fromDate="+currentMonthFromDate+"&toDate="+currentMonthToDate;
+
+    axios.get(expenseForPrevMonthUrl).then((response) => {
       //console.log(JSON.stringify(response));
-      setTotalExpenses(getTotalExpenses(response.data));
-      setBarChartData(Object.values(groupAmountByDate(response.data)));
-      setPieChartData(Object.values(groupAmountByCategory(response.data)));
+      setTotalExpensesPrevMonth(getTotalExpenses(response.data));
+      setBarChartDataPrevMonth(Object.values(groupAmountByDate(response.data)));
+      setPieChartDataPrevMonth(Object.values(groupAmountByCategory(response.data)));
+    });
+
+    axios.get(expenseForCurrMonthUrl).then((response) => {
+      //console.log(JSON.stringify(response));
+      setTotalExpensesCurrMonth(getTotalExpenses(response.data));
     });
   }, []);
 
   return (
     <>
       <Navbar />
-      <h1>
+      <h2>
         {" "}
-        Expenses Period <b>{prevMonth} 2023</b> 
+        Expenses Period in pie chart <b>{prevMonth} 2023</b> 
         <br/>
-        Total expenses are:- <b>{totalExpenses}</b>
-      </h1>
+        Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>
+        <br/>
+        Total expenses for current month are:- <b>{totalExpensesCurrMonth}</b>
+
+      </h2>
       <PieChart
-        data={pieChartData}
+        data={pieChartDataPrevMonth}
         width={500}
         height={500}
         innerRadius={180}
         outerRadius={220}
       />
-      <BarChart data={barChartData} />
+      <BarChart data={barChartDataPrevMonth} />
     </>
   );
 };
