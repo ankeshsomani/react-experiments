@@ -1,5 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
+import './index.css'
 
 const Arc = ({ data, index, createArc, colors, format }) => (
   <g key={index} className="arc">
@@ -8,17 +9,21 @@ const Arc = ({ data, index, createArc, colors, format }) => (
       transform={`translate(${createArc.centroid(data)})`}
       textAnchor="middle"
       fill="white"
-      fontSize="10"
+      fontSize="8"
+      aria-label = "sds"
     >
       {format(data.value)}
     </text>
   </g>
 );
 
+
 const PieChart = props => {
   const createPie = d3
     .pie()
-    .value(function(d) { return d.amount; }); 
+    .value(function(d) { return d.amount })
+    //.name(function(d){return d.category;})
+    ; 
 
   const createArc = d3
     .arc()

@@ -1,4 +1,4 @@
-import './assets/css/theme.min.css';
+
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NoPage from './components/404Page';
 import ListExpenseMui from './components/ListExpensesMui';

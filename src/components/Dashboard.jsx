@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
+
 import Navbar from "./Navbar";
 import axios from "axios";
+import './index.css'
 const Dashboard = () => {
   const baseUrl = "http://localhost:8082/api/expenses";
 
@@ -70,6 +72,15 @@ const Dashboard = () => {
     return today.getMonth();
   }
 
+  var data = {
+    label: 'Expenses',
+    values: [{ x: 'Food', y: 2000 }, { x: 'tatataar', y: 1687 }, { x: 'Grocery', y: 3903 }]
+  };
+
+  var tooltipScatter = function(x, y) {
+    return "x: " + x + " y: " + y;
+};
+
   useEffect(() => {
     setCurrentMonth(monthNames[getCurrentMonth()]);
     setPrevMonth(monthNames[getCurrentMonth() - 1]);
@@ -77,6 +88,7 @@ const Dashboard = () => {
     const lastMonthToDate = "2023-06-30";
     const currentMonthFromDate = "2023-07-01";
     const currentMonthToDate = "2023-07-30";
+
 
     var expenseForPrevMonthUrl = baseUrl+"?fromDate="+lastMonthFromDate+"&toDate="+lastMonthToDate;
     var expenseForCurrMonthUrl = baseUrl+"?fromDate="+currentMonthFromDate+"&toDate="+currentMonthToDate;
@@ -97,7 +109,6 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <h2>
         {" "}
         Expenses Period in pie chart <b>{prevMonth} 2023</b> 
         <br/>
@@ -105,16 +116,25 @@ const Dashboard = () => {
         <br/>
         Total expenses for current month are:- <b>{totalExpensesCurrMonth}</b>
 
-      </h2>
-      <PieChart
+      <div className="mydiv">
+    <PieChart
         data={pieChartDataPrevMonth}
         width={500}
         height={500}
         innerRadius={180}
-        outerRadius={220}
-      />
+        outerRadius={220} />
+        
+  {/* <PieChart
+    data={data}
+    width={600}
+    height={400}
+    margin={{ top: 10, bottom: 10, left: 100, right: 100 }}
+    sort={sort}
+  /> */}
+        <br/><br/><br/>
       <BarChart data={barChartDataPrevMonth} />
-    </>
+      </div>
+      </>
   );
 };
 

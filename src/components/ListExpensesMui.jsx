@@ -81,6 +81,7 @@ const ListExpenseMui = () => {
                 });
         }
         setTableData([...tableData]);
+        window.location.reload();
     };
 
     const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {

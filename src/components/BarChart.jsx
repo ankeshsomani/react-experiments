@@ -75,9 +75,9 @@ function BarChart(props) {
       ref={ref}
       style={{
         height: 600,
-        width: "100%",
         marginRight: "0px",
         marginLeft: "0px",
+        width: '100%'
       }}
     >
       <g className="plot-area" />
