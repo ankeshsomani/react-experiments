@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 
@@ -8,14 +8,26 @@ import './index.css'
 const Dashboard = () => {
   const baseUrl = "http://localhost:8082/api/expenses";
 
-  const [currentMonth, setCurrentMonth] = useState();
   const [prevMonth, setPrevMonth] = useState();
+  const [currentMonth, setCurrentMonth] = useState();
 
   const [totalExpensesPrevMonth, setTotalExpensesPrevMonth] = useState();
   const [barChartDataPrevMonth, setBarChartDataPrevMonth] = useState([]);
   const [pieChartDataPrevMonth, setPieChartDataPrevMonth] = useState([]);
 
   const [totalExpensesCurrMonth, setTotalExpensesCurrMonth] = useState();
+  const [barChartMonth, setBarChartMonth] = useState('')
+  const [pieChartMonth, setPieChartMonth] = useState('')
+  const [barChartDataCurrMonth, setBarChartDataCurrMonth] = useState([]);
+  const [pieChartDataCurrMonth, setPieChartDataCurrMonth] = useState([]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPieChartMonth(e.target.value);
+  };
+
+  const handleChange1 = (e: ChangeEvent<HTMLInputElement>) => {
+    setBarChartMonth(e.target.value);
+  };
 
   const monthNames = [
     "January",
@@ -46,10 +58,10 @@ const Dashboard = () => {
   }
 
   function getTotalExpenses(objectArray) {
-   
+
     return objectArray.reduce(function (accumulator, currentObject) {
       let amount1 = parseInt(currentObject["amount"]);
-      accumulator = accumulator+ amount1;
+      accumulator = accumulator + amount1;
       return accumulator;
     }, 0);
   }
@@ -77,9 +89,9 @@ const Dashboard = () => {
     values: [{ x: 'Food', y: 2000 }, { x: 'tatataar', y: 1687 }, { x: 'Grocery', y: 3903 }]
   };
 
-  var tooltipScatter = function(x, y) {
+  var tooltipScatter = function (x, y) {
     return "x: " + x + " y: " + y;
-};
+  };
 
   useEffect(() => {
     setCurrentMonth(monthNames[getCurrentMonth()]);
@@ -90,8 +102,8 @@ const Dashboard = () => {
     const currentMonthToDate = "2023-07-30";
 
 
-    var expenseForPrevMonthUrl = baseUrl+"?fromDate="+lastMonthFromDate+"&toDate="+lastMonthToDate;
-    var expenseForCurrMonthUrl = baseUrl+"?fromDate="+currentMonthFromDate+"&toDate="+currentMonthToDate;
+    var expenseForPrevMonthUrl = baseUrl + "?fromDate=" + lastMonthFromDate + "&toDate=" + lastMonthToDate;
+    var expenseForCurrMonthUrl = baseUrl + "?fromDate=" + currentMonthFromDate + "&toDate=" + currentMonthToDate;
 
     axios.get(expenseForPrevMonthUrl).then((response) => {
       //console.log(JSON.stringify(response));
@@ -103,38 +115,41 @@ const Dashboard = () => {
     axios.get(expenseForCurrMonthUrl).then((response) => {
       //console.log(JSON.stringify(response));
       setTotalExpensesCurrMonth(getTotalExpenses(response.data));
+      setBarChartDataCurrMonth(Object.values(groupAmountByDate(response.data)));
+      setPieChartDataCurrMonth(Object.values(groupAmountByCategory(response.data)));
     });
   }, []);
 
   return (
     <>
       <Navbar />
-        {" "}
-        Expenses Period in pie chart <b>{prevMonth} 2023</b> 
-        <br/>
-        Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>
-        <br/>
-        Total expenses for current month are:- <b>{totalExpensesCurrMonth}</b>
+      {" "}
+      Expenses Period in pie chart <b>{prevMonth} 2023</b>
+      <br />
+      Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>
+      <br />
+      Total expenses for current month are:- <b>{totalExpensesCurrMonth}</b>
 
       <div className="mydiv">
-    <PieChart
-        data={pieChartDataPrevMonth}
-        width={500}
-        height={500}
-        innerRadius={180}
-        outerRadius={220} />
-        
-  {/* <PieChart
-    data={data}
-    width={600}
-    height={400}
-    margin={{ top: 10, bottom: 10, left: 100, right: 100 }}
-    sort={sort}
-  /> */}
-        <br/><br/><br/>
-      <BarChart data={barChartDataPrevMonth} />
+        <select onChange={handleChange}>
+          <option>Previous Month</option>
+          <option>Current Month</option>
+        </select>
+        <p></p>
+        <PieChart
+          data={pieChartMonth === 'Previous Month' ? pieChartDataPrevMonth : pieChartDataCurrMonth}
+          width={500}
+          height={500}
+          innerRadius={180}
+          outerRadius={220} />
+        <br /><br /><br />
+        <select onChange={handleChange1}>
+          <option>Previous Month</option>
+          <option>Current Month</option>
+        </select>
+        <BarChart data={barChartMonth === 'Previous Month' ? barChartDataPrevMonth : barChartDataCurrMonth} />
       </div>
-      </>
+    </>
   );
 };
 
