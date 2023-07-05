@@ -251,6 +251,18 @@ const ListExpenseMui = () => {
                     <Button onClick={changeTheme}>Theme</Button>
                     </>
                 )}
+                initialState={{
+                    sorting: [
+                      {
+                        id: 'expensedate' , //sort by age by default on page load
+                        desc: true,
+                      },
+                      {
+                        id: 'lastName', //then sort by lastName if age is the same
+                        desc: true,
+                      },
+                    ],
+                  }}
             />
             <CreateNewExpenseModal
                 columns={columns}
