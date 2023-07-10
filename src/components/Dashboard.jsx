@@ -122,8 +122,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar />
-      {" "}
+      <Navbar balbal />                        
       Expenses Period in pie chart <b>{prevMonth} 2023</b>
       <br />
       Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>

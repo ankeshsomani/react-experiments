@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 const drawerWidth = 240;
-const navItems = ['Debug','Dashboard','Home'];
+const navItems = ['SignOut', 'Debug', 'Dashboard', 'Home'];
 
 function Navbar(props) {
   const { window } = props;
@@ -56,62 +56,71 @@ function Navbar(props) {
 
   const changeTheme = () => {
     if (theme === 'light')
-    setTheme('dark')
+      setTheme('dark')
     else
-    setTheme('light')
+      setTheme('light')
   }
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav" position='fixed'>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Expense manager
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {navItems.map((item, index) => (
-                <Button key={item} sx={{ color: '#fff' }} href={'/' + item}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar component="nav" position='fixed'>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              Expense manager
+            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {navItems.map((item, index) => {
+                if (item === 'SignOut') {
+                  return (
+                    <Button key={item} sx={{ color: '#fff' }} href='/signin'>{item}</Button>
+                  )
+                }
+                else {
+                  return (
+                    <Button key={item} sx={{ color: '#fff' }} href={'/' + item}>
                       {item}
-                </Button>
-        ))}
-        <Button sx={{ color: '#fff'}} onClick={changeTheme}>Theme</Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+                    </Button>
+                  )
+                }
+              })}
+              <Button sx={{ color: '#fff' }} onClick={changeTheme}>Theme</Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="nav">
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+        <Toolbar />
       </Box>
-      <Toolbar />
-    </Box>
     </ThemeProvider>
   );
 }

@@ -67,21 +67,19 @@ const ListExpenseMui = () => {
                     description: values.description,
                     amount: values.amount,
                 })
-                .then((response) => {
-                    toast.success("Success!", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                });
         }
         setTableData([...tableData]);
         window.location.reload();
+        toast.success("Success!", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     };
 
     const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
