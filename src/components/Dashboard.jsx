@@ -71,7 +71,9 @@ const Dashboard = () => {
       if (!accumulator[key]) {
         accumulator[key] = { category: key, amount: amount1 };
       }
+      else{
       accumulator[key].amount = accumulator[key].amount + amount1;
+      }
       return accumulator;
     }, {});
   }
