@@ -23,9 +23,6 @@ const Dashboard = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPieChartMonth(e.target.value);
-  };
-
-  const handleChange1 = (e: ChangeEvent<HTMLInputElement>) => {
     setBarChartMonth(e.target.value);
   };
 
@@ -122,7 +119,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar balbal />                        
+      <Navbar balbal />
       Expenses Period in pie chart <b>{prevMonth} 2023</b>
       <br />
       Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>
@@ -131,8 +128,8 @@ const Dashboard = () => {
 
       <div className="mydiv">
         <select onChange={handleChange}>
-          <option>Previous Month</option>
           <option>Current Month</option>
+          <option>Previous Month</option>
         </select>
         <p></p>
         <PieChart
@@ -142,10 +139,6 @@ const Dashboard = () => {
           innerRadius={180}
           outerRadius={220} />
         <br /><br /><br />
-        <select onChange={handleChange1}>
-          <option>Previous Month</option>
-          <option>Current Month</option>
-        </select>
         <BarChart data={barChartMonth === 'Previous Month' ? barChartDataPrevMonth : barChartDataCurrMonth} />
       </div>
     </>

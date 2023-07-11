@@ -27,5 +27,6 @@ export const categories = [
   'Entertainment',
   'Clothes and Footwear',
   'Others',
-  'Food'
+  'Food',
+  'Medical'
 ];

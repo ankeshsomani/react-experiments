@@ -26,7 +26,7 @@ import { Delete, Edit } from '@mui/icons-material';
 import { data, categories } from './makeData.ts';
 import Navbar from './Navbar';
 
-const ListExpenseMui = () => {
+const ListExpenseMui = (props) => {
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [tableData, setTableData] = useState(() => data);
     const [validationErrors, setValidationErrors] = useState({});
@@ -242,7 +242,7 @@ const ListExpenseMui = () => {
                     <Button
                         color="secondary"
                         onClick={() => setCreateModalOpen(true)}
-                        variant="contained"
+                        variant='contained'
                     >
                         Create New Expense
                     </Button>
@@ -303,7 +303,7 @@ export const CreateNewExpenseModal = ({ open, columns, onClose, onSubmit }) => {
     const expenseDateAccessorKey = 'expensedate';
     return (
         <Dialog open={open}>
-            <DialogTitle textAlign="center">Create New Expense</DialogTitle>
+            <DialogTitle textAlign="center" sx={{color: 'white'}}>Create New Expense</DialogTitle>
             <DialogContent>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Stack
