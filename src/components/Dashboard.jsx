@@ -5,6 +5,7 @@ import PieChart from "./PieChart";
 import Navbar from "./Navbar";
 import axios from "axios";
 import './index.css'
+import { Select, FormControl, MenuItem, Typography, InputLabel } from "@mui/material";
 const Dashboard = () => {
   const baseUrl = "http://localhost:8082/api/expenses";
 
@@ -71,8 +72,8 @@ const Dashboard = () => {
       if (!accumulator[key]) {
         accumulator[key] = { category: key, amount: amount1 };
       }
-      else{
-      accumulator[key].amount = accumulator[key].amount + amount1;
+      else {
+        accumulator[key].amount = accumulator[key].amount + amount1;
       }
       return accumulator;
     }, {});
@@ -122,17 +123,27 @@ const Dashboard = () => {
   return (
     <>
       <Navbar balbal />
-      Expenses Period in pie chart <b>{prevMonth} 2023</b>
-      <br />
+      <Typography variant="h6" gutterBottom>
       Total expenses for previous month are:- <b>{totalExpensesPrevMonth}</b>
-      <br />
+      </Typography>
+      <Typography variant="h6" gutterBottom>
       Total expenses for current month are:- <b>{totalExpensesCurrMonth}</b>
+      </Typography>
 
       <div className="mydiv">
-        <select onChange={handleChange}>
-          <option>Current Month</option>
-          <option>Previous Month</option>
-        </select>
+        <FormControl sx={{ m: 2, minWidth: 250 }}>
+        <InputLabel id="demo-simple-select-label">Month</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            onChange={handleChange}
+          >
+            <MenuItem value=''><em>Select Month</em></MenuItem>
+            <MenuItem value='Current Month'>Current Month</MenuItem>
+            <MenuItem value='Previous Month'>Previous Month</MenuItem>
+          </Select>
+        </FormControl>
         <p></p>
         <PieChart
           data={pieChartMonth === 'Previous Month' ? pieChartDataPrevMonth : pieChartDataCurrMonth}
